@@ -1,0 +1,69 @@
+name: - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake clang
+      
+      - name: Configure
+        run: cmake -H. -B_build -DCMAKE_CXX_STANDARD=11 -DCMAKE_CXX_COMPILER=clang++
+      
+      - name: Build
+        run: cmake --build _build
+      
+      - name: Run tests
+        run: |
+          ./_build/example1
+          ./_build/example2
+          cat log.txt
+
+  # Windows сборка (дополнительно, AppVeyor можно не делать)
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure
+        run: cmake -H. -B_build -DCMAKE_CXX_STANDARD=11
+      
+      - name: Build
+        run: cmake --build _build --config Release
+      
+      - name: Run tests
+        run: |
+          .\_build\Release\example1.exe
+          .\_build\Release\example2.exeCI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  # Linux сборка с GCC
+  linux-gcc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++
+      
+      - name: Configure
+        run: cmake -H. -B_build -DCMAKE_CXX_STANDARD=11
+      
+      - name: Build
+        run: cmake --build _build
+      
+      - name: Run tests
+        run: |
+          ./_build/example1
+          ./_build/example2
+          cat log.txt
+
+  # Linux сборка с Clang
+  linux-clang:
+    runs-on: ubuntu-latest
+    steps:
+      
