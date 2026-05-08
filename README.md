@@ -7,6 +7,7 @@
 ## Статус сборки
 
 ![CI Status](https://github.com/shirmanovak410-ops/lab04/actions/workflows/ci.yml/badge.svg)
+
 В рамках данной лабораторной работы было выполнено следующее:
 1) Скопирован репозиторий из lab03:
 ```bash
