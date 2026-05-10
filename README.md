@@ -1,23 +1,23 @@
-[![CI](https://github.com/shirmanovak410-ops/lab04/actions/workflows/ci.yml/badge.svg)](https://github.com/shirmanovak410-ops/lab04/actions/workflows/ci.yml)
+[![CI](https://github.com/shirmanovak410-ops/lab05/actions/workflows/ci.yml/badge.svg)](https://github.com/shirmanovak410-ops/lab05/actions/workflows/ci.yml)
 
-# lab04
+# lab05
 
 Проект с настройкой непрерывной интеграции (CI) через GitHub Actions.
 
 В рамках данной лабораторной работы было выполнено следующее:
 1) Скопирован репозиторий из lab03:
 ```bash
-git clone https://github.com/shirmanovak410-ops/lab03.git projects/lab04
-Клонирование в «projects/lab04»...
+git clone https://github.com/shirmanovak410-ops/lab03.git projects/lab05
+Клонирование в «projects/lab05»...
 remote: Enumerating objects: 28, done.
 remote: Counting objects: 100% (28/28), done.
 remote: Compressing objects: 100% (19/19), done.
 Получение объектов: 100% (28/28), 7.38 КиБ | 7.38 МиБ/с, готово.
 Определение изменений: 100% (5/5), готово.
 remote: Total 28 (delta 5), reused 21 (delta 3), pack-reused 0 (from 0)
-$ cd projects/lab04
+$ cd projects/lab05
 $ git remote remove origin
-$ git remote add origin https://github.com/shirmanovak410-ops/lab04.git
+$ git remote add origin https://github.com/shirmanovak410-ops/lab05.git
 ```
 2) Создан конфигурационный файл ci.yml:
 ```bash

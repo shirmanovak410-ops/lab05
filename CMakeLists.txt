@@ -4,10 +4,8 @@ project(print)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Убираем -Werror для совместимости с GTest
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    string(REPLACE "-Werror" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-endif()
+# Отключаем предупреждения, которые ломают GTest
+add_compile_options(-Wno-unused-variable -Wno-maybe-uninitialized -Wno-error)
 
 option(BUILD_TESTS "Build tests" OFF)
 
@@ -18,6 +16,7 @@ if(BUILD_TESTS)
     enable_testing()
     add_subdirectory(third-party/gtest)
     add_executable(check tests/test1.cpp)
+    target_compile_options(check PRIVATE -Wno-unused-variable)
     target_link_libraries(check print gtest_main)
     add_test(NAME check COMMAND check)
 endif()

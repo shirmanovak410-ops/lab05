@@ -1,6 +1,12 @@
-#include <fstream>
-#include <iostream>
-#include <string>
+#ifndef PRINT_HPP
+#define PRINT_HPP
 
-void print(const std::string& text, std::ofstream& out);
-void print(const std::string& text, std::ostream& out = std::cout);
+#include <string>
+#include <ostream>
+#include <fstream>
+#include <sstream>
+
+void print(const std::string& text, std::ostream& out);
+void print(const std::string& text, const std::string& filename);
+
+#endif
