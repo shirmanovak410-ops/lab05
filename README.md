@@ -186,41 +186,45 @@ Total Test time (real) =   0.02 sec
 ```
 6) В файл ci.yml дописана часть кода:
 ```yml
-$ cat .github/workflows/ci.yml
-name: CMake CI
+$ cat > .github/workflows/ci.yml << 'EOF'
+> name: CI
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ master, main ]
+    branches: [ main, master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
       with:
         submodules: true
 
-    - name: Install CMake
+    - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake cmake-data
+        sudo apt-get install -y cmake g++ libgtest-dev
+
+    - name: Build GoogleTest
+      run: |
+        cd /usr/src/gtest
+        sudo cmake .
+        sudo make
+        sudo cp lib/*.a /usr/lib
 
     - name: Configure CMake
-      run: cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
+      run: cmake -H. -B_build -DBUILD_TESTS=ON
 
     - name: Build
       run: cmake --build _build
 
-    - name: Install
-      run: cmake --build _build --target install
-
     - name: Run tests
-      run: cmake --build _build --target test -- ARGS=--verbose
+      run: ./_build/check
+EOF
 ```
 7) Все изменения закоммичены и запушены.
 8) Репозиторий прошёл все тесты (бейдж об этом в начале отчёта).
