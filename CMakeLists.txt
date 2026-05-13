@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
+project(print)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(BUILD_EXAMPLES "Build examples" OFF)
-
-project(print)
+option(BUILD_TESTS "Build tests" OFF)
 
 add_library(print STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/print.cpp)
 
@@ -23,7 +23,7 @@ if(BUILD_EXAMPLES)
     install(TARGETS ${EXAMPLE_NAME}
       RUNTIME DESTINATION bin
     )
-  endforeach(EXAMPLE_SOURCE ${EXAMPLE_SOURCES})
+  endforeach()
 endif()
 
 if(BUILD_TESTS)
