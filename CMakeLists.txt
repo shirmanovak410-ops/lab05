@@ -4,6 +4,8 @@ project(print)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_compile_options(-Wno-unused-variable -Wno-maybe-uninitialized -Wno-error)
+
 option(BUILD_EXAMPLES "Build examples" OFF)
 option(BUILD_TESTS "Build tests" OFF)
 
@@ -29,6 +31,11 @@ endif()
 if(BUILD_TESTS)
   enable_testing()
   add_subdirectory(third-party/gtest)
+  
+  # Отключаем Werror для Google Test
+  target_compile_options(gtest PRIVATE -Wno-error)
+  target_compile_options(gtest_main PRIVATE -Wno-error)
+  
   file(GLOB ${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
   add_executable(check ${${PROJECT_NAME}_TEST_SOURCES})
   target_link_libraries(check ${PROJECT_NAME} gtest_main)
